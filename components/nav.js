@@ -32,7 +32,7 @@ export default function Nav() {
         {/* dashboard */}
         <Link
           href={'/'}
-          className={(pathname == '/' ? activeLink : inactiveLink)}
+          className={(pathname === '/' ? activeLink : inactiveLink)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function Nav() {
         {/* products */}
         <Link
           href={'/products'}
-          className={(pathname == '/products' ? activeLink : inactiveLink)}
+          className={(pathname === '/products' ? activeLink : inactiveLink)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export default function Nav() {
         {/* Orders */}
         <Link
           href={'/orders'}
-          className={(pathname == '/orders' ? activeLink : inactiveLink)}
+          className={(pathname === '/orders' ? activeLink : inactiveLink)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export default function Nav() {
         {/* Settings */}
         <Link
           href={'/settings'}
-          className={(pathname == '/settings' ? activeLink : inactiveLink)}
+          className={(pathname === '/settings' ? activeLink : inactiveLink)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

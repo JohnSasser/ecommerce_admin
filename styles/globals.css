@@ -2,26 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+input,
+textarea {
+  @apply border-2 border-gray-500 rounded-md px-1 w-full;
+  @apply mb-2;
+}
+input:focus {
+  @apply border-blue-900;
+}
+label {
+  @apply text-blue-900;
+}
+h1 {
+  @apply text-gray-600 mb-4 font-medium text-xl;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.btn-primary {
+  @apply bg-blue-600 mt-4 text-white px-4 py-1 rounded-sm h-12 w-80;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+table.basic {
+  @apply w-full mt-4 mb-4;
+}
+table.basic thead {
+  @apply bg-blue-100;
+}
+table.basic tr td {
+  @apply border border-gray-300 p-1;
+}
+table.basic a {
+  @apply bg-blue-400 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
+}
+table a.delete-button {
+  @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
+}
+ button.btn-red {
+  @apply bg-red-700 text-white;
+}
+.btn-default, .btn-red {
+  @apply px-4 py-1 rounded-md;
+}
+.btn-default { 
+  @apply bg-gray-600 text-white;
+}
