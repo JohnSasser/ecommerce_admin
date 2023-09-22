@@ -17,17 +17,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 using [next-auth](https://next-auth.js.org/)
 * [mongdb-adapter](https://authjs.dev/reference/adapter/mongodb)
 
-## Atlas Mongodb
+## Atlas MongoDB
  atlas cluster link [mongodb-dashboard](https://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projectshttps://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projects)
 
 ## tailwindcss
-style by globally applied tailwind
+style by the globally applied tailwind
 
 ## heroicons
  [heroicons](heroicons.com)
 
 ## Mongoose
-[mongoose documentation with next.js](https://mongoosejs.com/docs/nextjs.html)
+[mongoose documentation for next.js](https://mongoosejs.com/docs/nextjs.html)
 
 
 
