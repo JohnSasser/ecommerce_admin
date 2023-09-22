@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project.
+Used [Next.js](https://nextjs.org/) for the infrastructure.
 
 ## Getting Started
 
 First, run the development server:
 
-```bash
+```bash/terminal
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-## TOOLING
+# TOOLING
 
-# User Auth 
+## User Auth 
 using [next-auth](https://next-auth.js.org/)
 * [mongdb-adapter](https://authjs.dev/reference/adapter/mongodb)
 
-# Atlas Mongodb
-* specific project [mongodb-dashboard](https://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projectshttps://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projects)
+## Atlas Mongodb
+ atlas cluster link [mongodb-dashboard](https://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projectshttps://cloud.mongodb.com/v2#/org/5f9f4921d747f670f33c1aca/projects)
 
-# tailwindcss
+## tailwindcss
 style by globally applied tailwind
 
-# heroicons
+## heroicons
  [heroicons](heroicons.com)
+
+## Mongoose
+[mongoose documentation with next.js](https://mongoosejs.com/docs/nextjs.html)
+
+
+
+
+
+
 
 
 <!-- 
