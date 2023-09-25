@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* nav menu */
+aside.nav-menu {
+  @apply text-white text-lg p-4 pr-0;
+}
+
+div.loader-box {
+  @apply: flex min-h-full items-center justify-center;
+}
+/* primaryly used in the products pages */
 input,
 textarea {
   @apply border-2 border-gray-500 rounded-md px-1 w-full;
@@ -35,12 +44,13 @@ table.basic a {
 table a.delete-button {
   @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
 }
- button.btn-red {
+button.btn-red {
   @apply bg-red-700 text-white;
 }
-.btn-default, .btn-red {
+.btn-default,
+.btn-red {
   @apply px-4 py-1 rounded-md;
 }
-.btn-default { 
+.btn-default {
   @apply bg-gray-600 text-white;
 }

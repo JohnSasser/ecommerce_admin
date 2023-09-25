@@ -10,7 +10,7 @@ export default function Nav() {
     inactiveLink + ' bg-white text-blue-900 pl-5 rounded-l-lg items-center';
 
   return (
-    <aside className="text-white text-xl p-4 pr-0">
+    <aside className="nav-menu">
       <Link href={'/'} className="flex gap-4 mb-4 mr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"

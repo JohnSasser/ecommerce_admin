@@ -1,18 +1,33 @@
 import Layout from '@/components/layout';
 import axios from 'axios';
+import RiseLoader from 'react-spinners/RiseLoader';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Products() {
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products').then(res => {
-      setProducts(res.data);
-    });
+    axios
+      .get('/api/products')
+      .then(res => {
+        let data = res.data;
+        // The localeCompare() method compares two strings in the current locale; sorting produces the new array.
+        let sortedData = data.sort((a, b) => a.title.localeCompare(b.title));
+        setProducts(sortedData);
+        setLoading(false);
+      })
+      .catch(err => console.error(err));
   }, []);
 
-  return products ? (
+  return loading ? (
+    <Layout>
+      <div className="loader-box flex min-h-full items-center justify-center">
+        <RiseLoader size="50" color="#7e9eff" />
+      </div>
+    </Layout>
+  ) : (
     <Layout>
       <Link className="btn-primary" href={'/products/new'}>
         Add Product
@@ -65,5 +80,5 @@ export default function Products() {
         </tbody>
       </table>
     </Layout>
-  ) : null;
+  );
 }
