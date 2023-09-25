@@ -14,9 +14,11 @@ export default function EditProductPage() {
     if (!id) {
       return;
     }
-    axios
-      .get('/api/products?id=' + id)
-      .then(res => setProductInfo(res.data));
+    axios.get('/api/products?id=' + id).then(res => {
+      if (res.status === 200) {
+        setProductInfo(res.data);
+      } else console.error(res);
+    });
   }, [id]);
 
   return (

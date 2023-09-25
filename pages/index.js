@@ -4,7 +4,7 @@ import Layout from '../components/layout';
 
 export default function Home() {
   const { data: session } = useSession();
-  console.log(session);
+  console.log('session: ', session);
 
   const name = session?.user?.name;
   const user_image = session?.user?.image;

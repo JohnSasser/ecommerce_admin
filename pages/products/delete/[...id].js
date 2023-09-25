@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 export default function DeleteProduct() {
   const [productInfo, setProductInfo] = useState(null);
-
   const router = useRouter();
+  // make the id of the selected product available globally to the function
   const { id } = router.query;
 
   useEffect(() => {
@@ -18,14 +18,16 @@ export default function DeleteProduct() {
       });
   }, []);
 
-  function goBack() {
+  function backButton() {
     router.push('/products');
   }
+
   function deleteProduct() {
     axios
       .delete('/api/products?id=' + id)
       .then(res => {
-        if (res.data.acknowledged === true) {
+        let delete_confirmed = res.data.acknowledged;
+        if (delete_confirmed === true) {
           return router.push('/products');
         }
       })
@@ -34,17 +36,17 @@ export default function DeleteProduct() {
 
   return (
     <Layout>
-      <h1> Do you really want to delete record? </h1>
+      <h1> Do you really want to delete the record? </h1>
       <br />
       <table className="basic">
         <thead>
           <tr>
             {productInfo ? (
-              <td className="product-link-buttons flex justify-between">
+              <tr className="product-link-buttons flex justify-between">
                 <td>Title: {productInfo?.title}</td>
                 <td>Description: {productInfo.description}</td>
                 <td>Price: {productInfo.price}</td>
-              </td>
+              </tr>
             ) : null}
           </tr>
         </thead>
@@ -54,7 +56,7 @@ export default function DeleteProduct() {
           Yes
         </button>
 
-        <button className="btn-default" onClick={goBack}>
+        <button className="btn-default" onClick={backButton}>
           No
         </button>
       </div>

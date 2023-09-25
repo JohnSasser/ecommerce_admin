@@ -34,14 +34,16 @@ export default async function handler(req, res) {
     // deconstruct properties passed in the api post;
     let { title, description, price, _id } = req.body;
     // updateOne record in the db by the passed _id property;
-    await Product.updateOne({ _id }, { title, description, price });
+    res.json(await Product.updateOne({ _id }, { title, description, price }));
     // return ok status
     res.json(200);
   }
 
   if (method === 'DELETE') {
-    let { id } = req.query;
-    res.json(await Product.deleteOne({ _id: id }));
-    res.json(200);
+    if (req.query?.id) {
+      let { id } = req.query;
+      res.json(await Product.deleteOne({ _id: id }));
+      res.json(200);
+    }
   }
 }

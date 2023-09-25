@@ -29,13 +29,6 @@ style by the globally applied tailwind
 ## Mongoose
 [mongoose documentation for next.js](https://mongoosejs.com/docs/nextjs.html)
 
-
-
-
-
-
-
-
 <!-- 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
