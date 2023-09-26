@@ -15,6 +15,7 @@ export default function EditProductPage() {
       return;
     }
     axios.get('/api/products?id=' + id).then(res => {
+      console.log(res.data);
       if (res.status === 200) {
         setProductInfo(res.data);
       } else console.error(res);

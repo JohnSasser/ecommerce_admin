@@ -7,14 +7,16 @@ export default async function handler(req, res) {
   await mongooseConnect();
 
   const { method } = req;
+  // const {_id, title, description, price, images} = req.body;
 
   if (method === 'POST') {
     // create a new product record in the db.
-    let { title, description, price } = req.body;
+    let { title, description, price, images } = req.body;
     const productDoc = await Product.create({
       title: title,
       description: description,
       price: price,
+      images: images,
     });
     res.json(productDoc);
   }
@@ -32,9 +34,11 @@ export default async function handler(req, res) {
 
   if (method === 'PUT') {
     // deconstruct properties passed in the api post;
-    let { title, description, price, _id } = req.body;
+    let { title, description, price, images, _id } = req.body;
     // updateOne record in the db by the passed _id property;
-    res.json(await Product.updateOne({ _id }, { title, description, price }));
+    res.json(
+      await Product.updateOne({ _id }, { title, description, price, images })
+    );
     // return ok status
     res.json(200);
   }

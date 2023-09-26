@@ -9,9 +9,8 @@ export default async function handle(req, res) {
   const bucket_name = 'sasser-next-ecommerce-admin-image-bucket';
 
   form.parse(req, async function (err, fields, files) {
-    console.log(files.file.length);
-    // let photos_arr = files.file;
     const links = [];
+    let photos_arr = files.file;
 
     const client = new S3Client({
       region: 'us-east-2',
@@ -21,12 +20,10 @@ export default async function handle(req, res) {
       },
     });
 
-    for (const file of files.file) {
+    for (const file of photos_arr) {
       const ext = file.originalFilename.toLowerCase().split('.').pop();
       const file_name = file.originalFilename.toLowerCase().split('.').shift();
       const new_file_name = Date.now() + '-' + file_name + '.' + ext;
-
-      console.log({ ext, file_name });
 
       await client.send(
         // mime installed to find the file-type from the file
@@ -41,7 +38,7 @@ export default async function handle(req, res) {
       const link = `https://${bucket_name}.s3.amazonaws.com/${new_file_name}`;
       links.push(link);
     }
-    return res.json(links);
+    return res.json({ links });
   });
 }
 
