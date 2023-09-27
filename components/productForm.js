@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { router } from 'next/router';
 import { useState } from 'react';
-import { CircleLoader, FadeLoader, BeatLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
+import { ReactSortable } from 'react-sortablejs';
 
 export default function ProductForm({
   _id,
@@ -33,11 +34,9 @@ export default function ProductForm({
         );
     } else {
       // create product
-      // console.log("before post data: ", data)
       await axios
         .post('/api/products', data)
         .then(res =>
-          // console.log(res.data)
           res.status === 200
             ? setBackToProducts(true)
             : alert('error updating record')
@@ -51,7 +50,6 @@ export default function ProductForm({
   async function uploadImage(e) {
     setImageLoader(true);
     let files = e.target?.files;
-    // console.log(files);
 
     if (files.length > 0) {
       const data = new FormData();
@@ -61,11 +59,16 @@ export default function ProductForm({
       const res = await axios.post('/api/upload', data);
 
       setImages(oldImages => {
-        // console.log(oldImages);
+        console.log('oldImages: ', oldImages);
         return [...oldImages, ...res.data.links];
       });
     }
     setImageLoader(false);
+  }
+
+  function imageOrder(images) {
+    // console.log(images);
+    setImages(images);
   }
 
   if (backToProducts) {
@@ -83,7 +86,7 @@ export default function ProductForm({
         />
         {/* photo */}
         <label>Photos</label>
-        <div className="mb-2 mt-1 flex flex-wrap gap-2">
+        <div className="mb-2 flex flex-wrap gap-2">
           <label className="w-24 h-24 flex items-center justify-center text-gray-700 bg-gray-200 rounded-lg mb-2 cursor-pointer">
             {imageLoader == false ? (
               <>
@@ -105,12 +108,18 @@ export default function ProductForm({
               </div>
             )}
           </label>
-          {!!images?.length &&
-            images.map(link => (
-              <div className="inline-block h-24" key={link}>
-                <img src={link} alt="product image" className="rounded-lg" />
-              </div>
-            ))}
+          <ReactSortable
+            className="flex flex-wrap gap-1"
+            list={images}
+            setList={imageOrder}
+          >
+            {!!images?.length &&
+              images.map(link => (
+                <div className="h-24" key={link}>
+                  <img src={link} alt="product image" className="rounded-lg" />
+                </div>
+              ))}
+          </ReactSortable>
         </div>
         {/* product description */}
         <label>What is the description for the new product?</label>
@@ -128,7 +137,9 @@ export default function ProductForm({
           type="number"
           onChange={e => setPrice(e.target.value)}
         />
-        <button className="btn-primary">Save product</button>
+        <button disabled={imageLoader} className="btn-primary">
+          Save product
+        </button>
       </form>
     );
 }

@@ -20,7 +20,7 @@ export default function Layout({ children }) {
   return (
     <div className="bg-blue-900 min-h-screen flex">
       <Nav />
-      <div className="bg-white flex-grow mt-1 mr-1 rounded-lg p-4 mb-2">
+      <div className="bg-white flex-grow mt-2 mb-2 mr-1 rounded-lg p-4">
         {children}
         {/* Logged in with NextAuth as {session.user.email} */}
       </div>

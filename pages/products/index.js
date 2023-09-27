@@ -21,7 +21,6 @@ export default function Products() {
       .catch(err => console.error(err));
   }, []);
 
-  console.log('products: ', products);
   return loading ? (
     <Layout>
       <div className="loader-box flex min-h-full items-center justify-center">
@@ -38,18 +37,19 @@ export default function Products() {
         <thead>
           <tr>
             <td>Product Name</td>
-            <td></td>
+            <td>Product Images</td>
+            <td>Product Management</td>
           </tr>
         </thead>
         <tbody>
           {products.map((product, idx) => (
-            <tr key={idx}>
+            <tr key={product._id}>
               <td>{product.title}</td>
-              {product.images.map(x => (
-                <td className="h-48 w-96 flex justify-center" key={idx}>
-                  <img className="" src={x} alt="product image" />
-                </td>
-              ))}
+              <td className="h-48 w-96 flex justify-center gap-3">
+                {product.images.map(x => (
+                  <img className="p-2" src={x} alt="product image" />
+                ))}
+              </td>
               <td className="product-link-buttons">
                 <Link href={'/products/edit/' + product._id}>
                   <svg
