@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 /* displayed image on new product page */
-img{
-  max-height: 100%
+img {
+  max-height: 100%;
 }
-
 
 /* nav menu */
 aside.nav-menu {
@@ -17,13 +16,16 @@ div.loader-box {
   @apply: flex min-h-full items-center justify-center;
 }
 
-/* primaryly used in the products pages */
+/* primarily used in the products pages */
 input,
-textarea {
+textarea,
+select {
   @apply border-2 border-gray-500 rounded-md px-1 w-full;
   @apply mb-2;
 }
-input:focus {
+input:focus,
+textarea:focus,
+select:focus {
   @apply border-blue-900;
 }
 label {
@@ -52,7 +54,7 @@ table a.delete-button {
   @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
 }
 button.btn-red {
-  @apply bg-red-700 text-white;
+  @apply bg-red-700 text-white ml-2;
 }
 /* add new product page */
 .btn-default,
