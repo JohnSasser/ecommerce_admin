@@ -7,7 +7,7 @@ export default function Catagories() {
   const [editedCategory, setEditedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
-  const [parentCategory, setParentCategory] = useState('');
+  const [parentCategory, setParentCategory] = useState(undefined);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function Catagories() {
         let sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
         setCategories(sortedData);
         setLoading(false);
+        setEditedCategory(null);
       })
       .catch(err => console.error(err));
   }
@@ -30,17 +31,34 @@ export default function Catagories() {
   async function saveCategory(e) {
     e.preventDefault();
     const data = { name, parentCategory };
-    // post category to db
-    try {
+    if (editedCategory) {
+      // assigning the id from the edited state to the set of values from the inputs;
+      data._id = editedCategory._id;
+      try {
+        await axios.put('/api/categories', data).then(res => {
+          console.log(res.data);
+          if (res.status === 200) {
+            setName('');
+            setParentCategory(null);
+            getCategories();
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      // post category to db
+
       console.log('post data: ', data);
-      await axios.post('/api/categories', data).then(res => {
-        if (res.status === 200) {
-          setName('');
-          getCategories();
-        }
-      });
-    } catch (err) {
-      console.error(err);
+      await axios
+        .post('/api/categories', data)
+        .then(res => {
+          if (res.status === 200) {
+            setName('');
+            getCategories();
+          }
+        })
+        .catch(err => console.error(err));
     }
   }
 
@@ -100,7 +118,7 @@ export default function Catagories() {
         <tbody>
           {categories.length > 0 &&
             categories.map(category => (
-              <tr>
+              <tr key={category._id}>
                 <td>{category.name}</td>
                 <td>{category.parent?.name}</td>
                 <td>

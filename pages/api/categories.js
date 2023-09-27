@@ -20,4 +20,13 @@ export default async function handler(req, res) {
     console.log(`created categoryDoc in api route ${categoryDoc}`);
     res.json(categoryDoc);
   }
+
+  if (method === 'PUT') {
+    let { name, parentCategory, _id } = req.body;
+    const updatedCategory = await Category.updateOne(
+      { _id },
+      { name, parentCategory }
+    );
+    res.json(updatedCategory);
+  }
 }
