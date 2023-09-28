@@ -64,3 +64,9 @@ button.btn-red {
 .btn-default {
   @apply bg-gray-600 text-white;
 }
+div.swal2-actions button {
+  @apply bg-red-700
+}
+button.swal2-confirm {
+  @apply bg-red-700;
+}

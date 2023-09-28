@@ -17,7 +17,6 @@ export default async function handler(req, res) {
       name: name,
       parent: parentCategory,
     });
-    console.log(`created categoryDoc in api route ${categoryDoc}`);
     res.json(categoryDoc);
   }
 
@@ -28,5 +27,10 @@ export default async function handler(req, res) {
       { name, parentCategory }
     );
     res.json(updatedCategory);
+  }
+
+  if (method === 'DELETE') {
+    let { _id } = req.body;
+    res.json(await Category.deleteOne({ _id }));
   }
 }

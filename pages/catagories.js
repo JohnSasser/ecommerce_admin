@@ -2,6 +2,7 @@ import Layout from '@/components/layout';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import RiseLoader from 'react-spinners/RiseLoader';
+import SweetAlert2 from 'react-sweetalert2';
 
 export default function Catagories() {
   const [editedCategory, setEditedCategory] = useState(null);
@@ -9,6 +10,12 @@ export default function Catagories() {
   const [name, setName] = useState('');
   const [parentCategory, setParentCategory] = useState(undefined);
   const [categories, setCategories] = useState([]);
+  const [swalProps, setSwalProps] = useState({
+    show: false,
+    showCancelButton: true,
+    cancelButtonText: 'Cancel',
+    confirmButtonText: 'Yes, Delete',
+  });
 
   useEffect(() => {
     getCategories();
@@ -23,7 +30,6 @@ export default function Catagories() {
         let sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
         setCategories(sortedData);
         setLoading(false);
-        setEditedCategory(null);
       })
       .catch(err => console.error(err));
   }
@@ -31,32 +37,33 @@ export default function Catagories() {
   async function saveCategory(e) {
     e.preventDefault();
     const data = { name, parentCategory };
-    if (editedCategory) {
+    if (editedCategory !== null) {
       // assigning the id from the edited state to the set of values from the inputs;
       data._id = editedCategory._id;
       try {
         await axios.put('/api/categories', data).then(res => {
           console.log(res.data);
           if (res.status === 200) {
+            setEditedCategory('');
             setName('');
-            setParentCategory(null);
-            getCategories();
+            setParentCategory(undefined);
           }
         });
+        getCategories();
       } catch (err) {
         console.log(err);
       }
     } else {
       // post category to db
-
       console.log('post data: ', data);
       await axios
         .post('/api/categories', data)
         .then(res => {
           if (res.status === 200) {
             setName('');
-            getCategories();
+            setParentCategory('');
           }
+          getCategories();
         })
         .catch(err => console.error(err));
     }
@@ -68,7 +75,31 @@ export default function Catagories() {
     setParentCategory(category.parent?._id);
   }
 
-  function deleteCategory(_id) {}
+  function handleClick(category) {
+    setEditedCategory(category);
+    setSwalProps({
+      show: true,
+      title: 'Warning...',
+      text: `Are you sure you would like to permanently Delete ${category.name}?`,
+    });
+  }
+
+  function deleteCategory() {
+    let data = editedCategory;
+    // console.log(data);
+    axios
+      .delete('/api/categories', { data: data })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200 && res.data.deletedCount >= 1) {
+          setEditedCategory('');
+          setName('');
+          setParentCategory('');
+        }
+        getCategories();
+      })
+      .catch(err => console.error(err));
+  }
 
   return !loading ? (
     <Layout>
@@ -128,7 +159,20 @@ export default function Catagories() {
                   >
                     Edit
                   </button>
-                  <button className="btn-red">Delete</button>
+                  <button
+                    onClick={() => handleClick(category)}
+                    className="btn-red"
+                  >
+                    Delete
+                  </button>
+                  <SweetAlert2
+                    {...swalProps}
+                    onConfirm={res => {
+                      if (res.isConfirmed === true) {
+                        deleteCategory();
+                      }
+                    }}
+                  />
                 </td>
               </tr>
             ))}
@@ -143,44 +187,3 @@ export default function Catagories() {
     </Layout>
   );
 }
-
-// {categories &&
-//   categories.map(category => (
-//     <tr key={category._id}>
-//       <td>{category.name}</td>
-//       <td>
-//         {category.parent &&
-//           categories.map(x => {
-//             if (category.parent === x._id) return x.name;
-//           })}
-//       </td>
-//       <td className="flex">
-//         <button
-//           onClick={() => editCategory(category)}
-//           className="btn-default"
-//         >
-//           Edit
-//         </button>
-//         <button
-//           onClick={() => deleteCategory(category._id)}
-//           className="btn-red"
-//         >
-//           Delete
-//         </button>
-//       </td>
-//     </tr>
-//   ))}
-
-// const [editedCategory, setEditedCategory] = useState('')
-
-// function editCategory(category) {
-//   console.log('category: ', category);
-//   setEditedCategory(category);
-//   setName(editedCategory.name);
-//   if (editedCategory.parent) {
-//     categories.map(x => {
-//       if (category.parent === x._id) setParentCategory(x);
-//     });
-//   }
-//   console.log(parentCategory);
-// }
