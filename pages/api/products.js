@@ -11,12 +11,13 @@ export default async function handler(req, res) {
 
   if (method === 'POST') {
     // create a new product record in the db.
-    let { title, description, price, images } = req.body;
+    let { title, description, price, images, category } = req.body;
     const productDoc = await Product.create({
       title: title,
       description: description,
       price: price,
       images: images,
+      category: category,
     });
     res.json(productDoc);
   }
@@ -34,10 +35,13 @@ export default async function handler(req, res) {
 
   if (method === 'PUT') {
     // deconstruct properties passed in the api post;
-    let { title, description, price, images, _id } = req.body;
+    let { title, description, price, images, category, _id } = req.body;
     // updateOne record in the db by the passed _id property;
     res.json(
-      await Product.updateOne({ _id }, { title, description, price, images })
+      await Product.updateOne(
+        { _id },
+        { title, description, price, images, category }
+      )
     );
     // return ok status
     res.json(200);

@@ -77,10 +77,11 @@ export default function Catagories() {
 
   function handleClick(category) {
     setEditedCategory(category);
+    let cat_name = category.name.toUpperCase();
     setSwalProps({
       show: true,
       title: 'Warning...',
-      text: `Are you sure you would like to permanently Delete ${category.name}?`,
+      text: `Are you sure you would like to permanently Delete ${cat_name}?`,
     });
   }
 
@@ -167,6 +168,10 @@ export default function Catagories() {
                   </button>
                   <SweetAlert2
                     {...swalProps}
+                    showCancelButton="true"
+                    cancelButtonText="Cancel"
+                    confirmButtonColor="#d55"
+                    reverseButtons="true"
                     onConfirm={res => {
                       if (res.isConfirmed === true) {
                         deleteCategory();
