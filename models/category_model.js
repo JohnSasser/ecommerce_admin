@@ -10,6 +10,11 @@ const CategorySchema = new Schema({
     ref: 'Category',
     required: false,
   },
+  properties: {
+    type: [Object],
+    ref: 'Category',
+    required: false,
+  },
 });
 
 export const Category = models?.Category || model('Category', CategorySchema);

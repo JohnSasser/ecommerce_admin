@@ -11,12 +11,14 @@ export default function ProductForm({
   price: existingPrice,
   images: existingImages,
   category: existingCategory,
+  properties: existingProperties,
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || '');
   const [images, setImages] = useState(existingImages || []);
   const [category, setCategory] = useState(existingCategory || '');
+  const [properties, setProperties] = useState(existingProperties || {});
   const [imageLoader, setImageLoader] = useState(false);
   const [backToProducts, setBackToProducts] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -33,17 +35,23 @@ export default function ProductForm({
   async function createProduct(e) {
     e.preventDefault();
 
-    const data = { title, description, price, images, category };
+    const data = {
+      title,
+      description,
+      price,
+      images,
+      category,
+      properties,
+    };
 
     if (_id) {
       //update existing record
-      await axios
-        .put(`/api/products/`, { ...data, _id })
-        .then(res =>
-          res.status === 200
-            ? setBackToProducts(true)
-            : alert('error updating record')
-        );
+      await axios.put(`/api/products/`, { ...data, _id }).then(res => {
+        console.log(res);
+        res.status === 200
+          ? setBackToProducts(true)
+          : alert('error updating record');
+      });
     } else {
       // create product
       await axios
@@ -79,8 +87,30 @@ export default function ProductForm({
   }
 
   function imageOrder(images) {
-    // console.log(images);
+    // function for ReactSortable import to reorder images
     setImages(images);
+  }
+
+  const propertiesToFill = [];
+  if (categories.length > 0 && category) {
+    let catInfo = categories.find(({ _id }) => _id === category);
+    propertiesToFill.push(...catInfo.properties);
+
+    while (catInfo?.parent?.id) {
+      const parentCat = categories.find(
+        ({ _id }) => _id === catInfo?.parent?._id
+      );
+      propertiesToFill.push(...parentCat.properties);
+      catInfo = parentCat;
+    }
+  }
+
+  function setProductProps(propName, active_value) {
+    setProperties(prev => {
+      const newProductProps = { ...prev };
+      newProductProps[propName] = active_value;
+      return newProductProps;
+    });
   }
 
   if (backToProducts) {
@@ -108,6 +138,26 @@ export default function ProductForm({
               ))
             : null}
         </select>
+
+        <label>Properties</label>
+        {propertiesToFill.length >= 1 &&
+          propertiesToFill.map((p, idx) => (
+            <div key={p.name + idx} className="flex gap-2 mt-1 mb-2 w-80">
+              <div className="w-48" key={`${p.name}_${idx}`}>
+                {p.name}
+              </div>
+              <select
+                value={properties[p.name]}
+                onChange={ev => setProductProps(p.name, ev.target.value)}
+              >
+                {p.values.map(v => (
+                  <option key={v + idx} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
 
         {/* photo */}
         <label>Photos</label>

@@ -8,6 +8,10 @@ const ProductSchema = new Schema({
   category: {
     type: mongoose.Types.ObjectId,
     ref: 'Category',
+    required: false,
+  },
+  properties: {
+    type: Object,
   },
 });
 

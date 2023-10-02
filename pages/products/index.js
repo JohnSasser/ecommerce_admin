@@ -13,6 +13,7 @@ export default function Products() {
       .get('/api/products')
       .then(res => {
         let data = res.data;
+        console.log('products: ', products);
         // The localeCompare() method compares two strings in the current locale; sorting produces the new array.
         let sortedData = data.sort((a, b) => a.title.localeCompare(b.title));
         setProducts(sortedData);
@@ -29,10 +30,11 @@ export default function Products() {
     </Layout>
   ) : (
     <Layout>
-      <Link className="btn-primary" href={'/products/new'}>
-        Add Product
-      </Link>
-
+      <div className="pt-4 pb-4">
+        <Link className="btn-primary" href={'/products/new'}>
+          Add Product
+        </Link>
+      </div>
       <table className="basic">
         <thead>
           <tr>
@@ -47,7 +49,12 @@ export default function Products() {
               <td>{product.title}</td>
               <td className="h-48 w-96 flex justify-center gap-3">
                 {product.images.map(x => (
-                  <img className="p-2" src={x} alt="product image" />
+                  <img
+                    className="p-2"
+                    key={`${x}_${idx}`}
+                    src={x}
+                    alt="product image"
+                  />
                 ))}
               </td>
               <td className="product-link-buttons">
