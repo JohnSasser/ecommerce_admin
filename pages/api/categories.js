@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const categoryDoc = await Category.create({
       name: name,
       parent: parentCategory === '' ? undefined : parentCategory,
-      properties: properties,
+      properties: properties === null ? undefined : properties,
     });
     res.json(categoryDoc);
   }
@@ -24,12 +24,13 @@ export default async function handler(req, res) {
   if (method === 'PUT') {
     let { name, parentCategory, properties, _id } = req.body;
     console.log('put req.body', req.body);
+
     const updatedCategory = await Category.updateOne(
       { _id },
       {
         name: name,
         parentCategory: parentCategory === '' ? undefined : parentCategory,
-        properties: properties,
+        properties: properties === null ? undefined : properties,
       }
     );
     res.json(updatedCategory);

@@ -8,6 +8,7 @@ export default function Catagories() {
   const [loading, setLoading] = useState(true);
 
   const [editedCategory, setEditedCategory] = useState(null);
+  const [deleteSelectionCategory, setDeleteSelectionCategory] = useState({});
   const [name, setName] = useState('');
   const [parentCategory, setParentCategory] = useState(undefined);
 
@@ -40,24 +41,25 @@ export default function Catagories() {
 
   async function saveCategory(e) {
     e.preventDefault();
-    console.log(properties);
-    const data = {
+
+    const data_object = {
       name,
       parentCategory,
       properties: properties.map(p => {
-        return {
-          name: p.name,
-          values: p.values.split(','),
-        };
+        if (p.name && p.values) {
+          return {
+            name: p.name,
+            values: p.values.split(','),
+          };
+        } else return;
       }),
     };
-    // console.log(editedCategory);
+
+    // put or post conditional;
     if (editedCategory !== null) {
-      // assigning the id from the edited state to the set of values from the inputs;
-      data._id = editedCategory._id;
+      data_object._id = editedCategory._id;
       try {
-        await axios.put('/api/categories', data).then(res => {
-          // console.log(res.data);
+        await axios.put('/api/categories', data_object).then(res => {
           if (res.status === 200) {
             clearEdits();
           }
@@ -67,10 +69,8 @@ export default function Catagories() {
         console.log(err);
       }
     } else {
-      // post category to db
-      console.log('post data: ', data);
       await axios
-        .post('/api/categories', data)
+        .post('/api/categories', data_object)
         .then(res => {
           if (res.status === 200) {
             clearEdits();
@@ -82,7 +82,7 @@ export default function Catagories() {
   }
 
   function deleteCategory() {
-    let data = editedCategory;
+    let data = deleteSelectionCategory;
     // console.log(data);
     axios
       .delete('/api/categories', { data: data })
@@ -92,6 +92,7 @@ export default function Catagories() {
           setEditedCategory('');
           setName('');
           setParentCategory('');
+          setDeleteSelectionCategory('');
         }
         getCategories();
       })
@@ -113,24 +114,30 @@ export default function Catagories() {
   }
 
   function clearEdits() {
-    setEditedCategory(null);
+    setEditedCategory('');
     setName('');
     setParentCategory('');
     setProperties([]);
   }
 
-  function handleClick(category) {
-    setEditedCategory(category);
-    let cat_name = category.name.toUpperCase();
+  function handleDeleteButtonClick(category) {
     setSwalProps({
       show: true,
       title: 'Warning...',
-      text: `Are you sure you would like to permanently Delete ${cat_name}?`,
+      text: `Are you sure you would like to permanently Delete ${category.name}?`,
+    });
+
+    setDeleteSelectionCategory(category);
+  }
+
+  function closeSwalPopover() {
+    setDeleteSelectionCategory('');
+    setSwalProps({
+      show: false,
     });
   }
 
   function addProperty() {
-    // post new pr
     setProperties(prev => {
       return [...prev, { name: '', values: '' }];
     });
@@ -140,18 +147,20 @@ export default function Catagories() {
   // and it is reassigned to the property object attribute of name that was created
   // when the inputs were dynamically rendered;
   function handlePropertyNameChange(idx, property, input_state) {
-    // console.log({ idx, property, input_state });
+    console.log({ idx, property, input_state });
     setProperties(prev => {
       const properties = [...prev];
+
       properties[idx].name = input_state;
       return properties;
     });
   }
 
   function handlePropertyValuesChange(idx, property, input_state) {
-    // console.log({ idx, property, input_state });
+    console.log({ idx, property, input_state });
     setProperties(prev => {
       const properties = [...prev];
+
       properties[idx].values = input_state;
       return properties;
     });
@@ -166,6 +175,9 @@ export default function Catagories() {
       return properties;
     });
   }
+
+  console.log('delete sec cat: ', deleteSelectionCategory);
+  console.log('swalProps: ', swalProps);
 
   return !loading ? (
     <Layout>
@@ -244,19 +256,20 @@ export default function Catagories() {
               </div>
             ))}
         </div>
+
+        <button type="submit" className="btn-primary w-28">
+          Save
+        </button>
+
         {editedCategory && (
           <button
             type="button"
             onClick={() => clearEdits()}
-            className="btn-default mr-2 h-12"
+            className="btn-default ml-2 h-12"
           >
             Cancel Edit
           </button>
         )}
-
-        <button type="submit" className="btn-primary">
-          Save
-        </button>
       </form>
 
       {!editedCategory && (
@@ -274,31 +287,39 @@ export default function Catagories() {
                 <tr key={category._id}>
                   <td>{category.name}</td>
                   <td>{category.parent?.name}</td>
-                  <td>
-                    <button
-                      onClick={() => editCategory(category)}
-                      className="btn-default"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleClick(category)}
-                      className="btn-red"
-                    >
-                      Delete
-                    </button>
-                    <SweetAlert2
-                      {...swalProps}
-                      showCancelButton="true"
-                      cancelButtonText="Cancel"
-                      confirmButtonColor="#d55"
-                      reverseButtons="true"
-                      onConfirm={res => {
-                        if (res.isConfirmed === true) {
-                          deleteCategory();
-                        }
-                      }}
-                    />
+                  <td className="flex">
+                    <div className="m-2">
+                      <button
+                        key={`edit${category._id}`}
+                        onClick={ev => editCategory(category, ev.target.value)}
+                        className="btn-default"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <div className="m-2">
+                      <button
+                        key={`delete${category._id}`}
+                        onClick={ev => handleDeleteButtonClick(category)}
+                        className="btn-red"
+                      >
+                        Delete
+                      </button>
+                      <SweetAlert2
+                        {...swalProps}
+                        showCancelButton="true"
+                        cancelButtonText="Cancel"
+                        confirmButtonColor="#d55"
+                        reverseButtons="true"
+                        onResolve={res => {
+                          if (res.isConfirmed === true) {
+                            deleteCategory(deleteSelectionCategory);
+                          } else {
+                            closeSwalPopover();
+                          }
+                        }}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
