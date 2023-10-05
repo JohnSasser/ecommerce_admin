@@ -83,7 +83,7 @@ export default function Catagories() {
 
   function deleteCategory() {
     let data = deleteSelectionCategory;
-    // console.log(data);
+
     axios
       .delete('/api/categories', { data: data })
       .then(res => {
@@ -171,13 +171,10 @@ export default function Catagories() {
       const properties = [...prev].filter((property, property_index) => {
         return property_index !== idx;
       });
-      console.log('properties: ', properties);
+
       return properties;
     });
   }
-
-  console.log('delete sec cat: ', deleteSelectionCategory);
-  console.log('swalProps: ', swalProps);
 
   return !loading ? (
     <Layout>
