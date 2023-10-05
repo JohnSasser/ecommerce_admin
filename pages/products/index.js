@@ -47,10 +47,10 @@ export default function Products() {
           {products.map((product, idx) => (
             <tr key={product._id}>
               <td>{product.title}</td>
-              <td className="h-48 w-96 flex justify-center gap-3">
+              <td className="flex justify-evenly flex-wrap gap-2 ">
                 {product.images.map(x => (
                   <img
-                    className="p-2"
+                    className="p-2 max-h-40"
                     key={`${x}_${idx}`}
                     src={x}
                     alt="product image"

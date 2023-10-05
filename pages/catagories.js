@@ -42,7 +42,7 @@ export default function Catagories() {
   async function saveCategory(e) {
     e.preventDefault();
 
-    const data_object = {
+    const category_object = {
       name,
       parentCategory,
       properties: properties.map(p => {
@@ -57,9 +57,9 @@ export default function Catagories() {
 
     // put or post conditional;
     if (editedCategory !== null) {
-      data_object._id = editedCategory._id;
+      category_object._id = editedCategory._id;
       try {
-        await axios.put('/api/categories', data_object).then(res => {
+        await axios.put('/api/categories', category_object).then(res => {
           if (res.status === 200) {
             clearEdits();
           }
@@ -70,7 +70,7 @@ export default function Catagories() {
       }
     } else {
       await axios
-        .post('/api/categories', data_object)
+        .post('/api/categories', category_object)
         .then(res => {
           if (res.status === 200) {
             clearEdits();
