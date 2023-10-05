@@ -2,8 +2,12 @@ import multiparty from 'multiparty';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import fs, { readFileSync } from 'fs';
 import mime from 'mime-types';
+import { mongooseConnect } from '@/lib/mongoose';
+import { adminValidation } from './auth/[...nextauth]';
 
 export default async function handle(req, res) {
+  await adminValidation(req, res);
+  await mongooseConnect();
   const form = new multiparty.Form();
 
   const bucket_name = 'sasser-next-ecommerce-admin-image-bucket';

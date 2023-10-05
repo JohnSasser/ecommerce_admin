@@ -1,13 +1,14 @@
 import { Product } from '@/models/product_model';
 // ./lib/mongoose.js has the imports mongoose and instantiates it on the mongo cluster used for user creds;
 import { mongooseConnect } from '@/lib/mongoose';
+import { adminValidation } from './auth/[...nextauth]';
 
 export default async function handler(req, res) {
   // mongoose Instance connection that links to the atlas cluster in the lib folder;
+  await adminValidation(req, res);
   await mongooseConnect();
 
   const { method } = req;
-  // const {_id, title, description, price, images} = req.body;
 
   if (method === 'POST') {
     // create a new product record in the db.
