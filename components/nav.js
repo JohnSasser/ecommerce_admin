@@ -1,8 +1,9 @@
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Logo from './logo';
 
-export default function Nav() {
+export default function Nav({ showNav }) {
   const router = useRouter();
   const { pathname } = router;
 
@@ -10,35 +11,26 @@ export default function Nav() {
   const activeIcon = 'text-secondary w-6 h-6';
   const activeLink =
     inactiveLink +
-    ' bg-gray-500 text-secondary p-4 pl-5 rounded-l-lg items-center';
+    ' bg-gray-600 text-secondary p-4 pl-5 rounded-l-lg items-center';
 
   function logout() {
     router.push('/');
     signOut();
   }
+  console.log(' showNav:', showNav);
 
   return (
-    <aside className="nav-menu text-gray-700">
+    <aside
+      className={
+        (showNav ? ' left-0' : '-left-full') +
+        ' top-0 text-gray-500 bg-gray-200 p-4 pr-0 fixed w-full h-screen md:static md:w-auto transition-all'
+      }
+    >
       <Link href={'/'} className="flex gap-4 mb-6 mr-6">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
-          />
-        </svg>
-        <span className="">
-          <b>Admin Portal</b>
-        </span>
+        <Logo />
+        
       </Link>
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-col w-48 gap-3">
         {/* dashboard */}
         <Link
           href={'/'}

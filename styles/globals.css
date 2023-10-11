@@ -27,9 +27,11 @@ textarea:focus,
 select:focus {
   @apply border-blue-900;
 }
+
 label {
   @apply text-blue-900;
 }
+
 h1 {
   @apply text-gray-600 mb-4 font-medium text-xl;
 }
@@ -37,21 +39,29 @@ h1 {
 .btn-primary {
   @apply bg-blue-600 rounded-md text-white p-4 mt-2 mb-2;
 }
+
+
 table.basic {
-  @apply w-full mt-4 mb-4;
+  @apply w-full m-4 shadow-lg ;
 }
+
 table.basic thead {
-  @apply bg-blue-100;
+  @apply text-sm text-gray-800 uppercase text-center border-b border-gray-300;
 }
+
 table.basic tr td {
-  @apply border border-gray-300 p-1;
+  @apply p-1;
 }
+
 table.basic a {
   @apply bg-blue-400 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
 }
+
 table a.delete-button {
   @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
 }
+
+
 button.btn-red {
   @apply bg-red-700 text-white ml-2;
 }

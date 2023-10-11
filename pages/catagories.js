@@ -281,10 +281,10 @@ export default function Catagories() {
           <tbody>
             {categories.length > 0 &&
               categories.map(category => (
-                <tr key={category._id}>
+                <tr className='border-b-2 text-center' key={category._id}>
                   <td>{category.name}</td>
                   <td>{category.parent?.name}</td>
-                  <td className="flex">
+                  <td className="flex justify-center">
                     <div className="m-2">
                       <button
                         key={`edit${category._id}`}
@@ -294,11 +294,11 @@ export default function Catagories() {
                         Edit
                       </button>
                     </div>
-                    <div className="m-2">
+                    <div className="m-2 flex justify-around">
                       <button
                         key={`delete${category._id}`}
                         onClick={ev => handleDeleteButtonClick(category)}
-                        className="btn-red"
+                        className="btn-red "
                       >
                         Delete
                       </button>
