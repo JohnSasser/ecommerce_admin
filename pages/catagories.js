@@ -273,15 +273,15 @@ export default function Catagories() {
         <table className="basic mt-4">
           <thead>
             <tr>
-              <td>Category Names</td>
-              <td>Parent Category</td>
-              <td>Category Management</td>
+              <td className="title">Category Name</td>
+              <td className="title">Parent Category</td>
+              <td className="title">Category Management</td>
             </tr>
           </thead>
           <tbody>
             {categories.length > 0 &&
               categories.map(category => (
-                <tr className='border-b-2 text-center' key={category._id}>
+                <tr className="border-b-2 text-center" key={category._id}>
                   <td>{category.name}</td>
                   <td>{category.parent?.name}</td>
                   <td className="flex justify-center">

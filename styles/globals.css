@@ -18,18 +18,19 @@ div.loader-box {
 /* primarily used in the products pages */
 input,
 textarea,
-select {
-  @apply border-2 border-gray-500 rounded-md px-1 w-full;
-  @apply mb-2;
+select,
+option {
+  @apply border border-gray-300 rounded-md p-2 w-full;
+  @apply mb-2 text-slate-600 ;
 }
 input:focus,
 textarea:focus,
 select:focus {
-  @apply border-blue-900;
+  @apply border-slate-600;
 }
 
 label {
-  @apply text-blue-900;
+  @apply text-slate-600;
 }
 
 h1 {
@@ -40,13 +41,16 @@ h1 {
   @apply bg-blue-600 rounded-md text-white p-4 mt-2 mb-2;
 }
 
-
 table.basic {
-  @apply w-full m-4 shadow-lg ;
+  @apply m-auto my-6 shadow-2xl w-11/12 rounded-lg;
 }
 
 table.basic thead {
   @apply text-sm text-gray-800 uppercase text-center border-b border-gray-300;
+}
+
+table.basic td.title {
+  @apply font-bold p-3;
 }
 
 table.basic tr td {
@@ -54,13 +58,12 @@ table.basic tr td {
 }
 
 table.basic a {
-  @apply bg-blue-400 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
+  @apply text-white px-4 py-1 text-sm bg-gray-500 inline-flex mx-1 gap-1 items-center;
 }
 
-table a.delete-button {
+/* table a.delete-button {
   @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
-}
-
+} */
 
 button.btn-red {
   @apply bg-red-700 text-white ml-2;

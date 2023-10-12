@@ -35,13 +35,13 @@ export default function Products() {
           Add Product
         </Link>
       </div>
-      <div className="container">
-        <table className="basic rounded-md ">
+      <div className="container h-full w-full">
+        <table className="basic">
           <thead>
             <tr className="max-w-sm">
-              <td>Product Name</td>
-              <td>Product Images</td>
-              <td>Product Management</td>
+              <td className="title">Product Name</td>
+              <td className="title">Product Images</td>
+              <td className="title">Product Management</td>
             </tr>
           </thead>
           <tbody className="">

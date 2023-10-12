@@ -200,6 +200,7 @@ export default function ProductForm({
         <label>What is the description for the new product?</label>
         <textarea
           placeholder="description"
+          className="h-40"
           value={description}
           type="text"
           onChange={e => setDescription(e.target.value)}
