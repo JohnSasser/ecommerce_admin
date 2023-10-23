@@ -180,7 +180,7 @@ export default function Catagories() {
     <Layout>
       <h1>Catagories Page</h1>
 
-      <label>
+      <label className="label-title">
         {editedCategory
           ? `Edit Category ${editedCategory.name}`
           : 'Create New Category'}
@@ -189,14 +189,14 @@ export default function Catagories() {
       <form onSubmit={saveCategory} className="">
         <div className="flex gap-1 mb-2">
           <input
-            className="mb-0"
+            className="mb-0 m-2"
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder={'Category Name'}
           />
           <select
-            className="mb-0"
+            className="mb-0 m-2"
             name="Parent Category"
             value={parentCategory}
             onChange={e => setParentCategory(e.target.value)}
@@ -212,10 +212,10 @@ export default function Catagories() {
         </div>
 
         <div className="mb-2">
-          <label className="block">Properties</label>
+          <label className="label-title block">Properties</label>
           <button
             type="button"
-            className="btn-default text-sm mb-2"
+            className="btn-default text-sm m-2"
             onClick={addProperty}
           >
             add new property
@@ -225,7 +225,7 @@ export default function Catagories() {
               <div key={idx} className="flex mt-1 gap-1">
                 <input
                   type="text"
-                  className="mb-0"
+                  className="mb-0  m-2"
                   value={property.name}
                   onChange={ev =>
                     handlePropertyNameChange(idx, property, ev.target.value)
@@ -235,7 +235,7 @@ export default function Catagories() {
 
                 <input
                   type="text"
-                  className="mb-0"
+                  className="mb-0 m-2"
                   value={property.values}
                   onChange={ev =>
                     handlePropertyValuesChange(idx, property, ev.target.value)
@@ -246,7 +246,7 @@ export default function Catagories() {
                 <button
                   type="button"
                   onClick={() => removeProperty(idx)}
-                  className="btn-default"
+                  className="delete-button mx-4"
                 >
                   remove
                 </button>
@@ -254,7 +254,7 @@ export default function Catagories() {
             ))}
         </div>
 
-        <button type="submit" className="btn-primary w-28">
+        <button type="submit" className="btn-primary">
           Save
         </button>
 
@@ -291,6 +291,14 @@ export default function Catagories() {
                         onClick={ev => editCategory(category, ev.target.value)}
                         className="btn-default"
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" />
+                        </svg>
                         Edit
                       </button>
                     </div>
@@ -298,8 +306,20 @@ export default function Catagories() {
                       <button
                         key={`delete${category._id}`}
                         onClick={ev => handleDeleteButtonClick(category)}
-                        className="btn-red "
+                        className="delete-button"
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
                         Delete
                       </button>
                       <SweetAlert2

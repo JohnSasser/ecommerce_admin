@@ -28,7 +28,7 @@ export default function Layout({ children }) {
 
   console.log(showNav);
   return (
-    <div className="bg-gray-200 h-full">
+    <div className="bg-gray-200 h-screen">
       <div className=" md:hidden flex pl-6 items-center ">
         <button onClick={() => navToggle()}>
           <svg
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
       </div>
       <div className="bg-gray-200 flex">
         <Nav showNav={showNav} />
-        <div className="bg-white flex-grow mt-4 mb-4 rounded-l-lg p-4">
+        <div className="bg-white flex-grow mt-6 mb-4 rounded-l-lg p-4">
           {children}
           {/* Logged in with NextAuth as {session.user.email} */}
         </div>

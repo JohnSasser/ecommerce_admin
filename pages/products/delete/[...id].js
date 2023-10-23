@@ -52,7 +52,7 @@ export default function DeleteProduct() {
         </thead>
       </table>
       <div className="flex gap-2 justify-center">
-        <button onClick={deleteProduct} className="btn-red">
+        <button onClick={deleteProduct} className="delete-button">
           Yes
         </button>
 

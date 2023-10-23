@@ -71,7 +71,7 @@ export default function Products() {
                     Edit
                   </Link>
                   <Link
-                    className="delete-button"
+                  className='delete-button'
                     href={'products/delete/' + product._id}
                   >
                     <svg

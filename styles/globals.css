@@ -21,7 +21,7 @@ textarea,
 select,
 option {
   @apply border border-gray-300 rounded-md p-2 w-full;
-  @apply mb-2 text-slate-600 ;
+  @apply mb-2 text-slate-600;
 }
 input:focus,
 textarea:focus,
@@ -35,10 +35,6 @@ label {
 
 h1 {
   @apply text-gray-600 mb-4 font-medium text-xl;
-}
-
-.btn-primary {
-  @apply bg-blue-600 rounded-md text-white p-4 mt-2 mb-2;
 }
 
 table.basic {
@@ -58,20 +54,35 @@ table.basic tr td {
 }
 
 table.basic a {
-  @apply text-white px-4 py-1 text-sm bg-gray-500 inline-flex mx-1 gap-1 items-center;
+  @apply text-white px-4 py-1 m-1 text-sm bg-gray-500 inline-flex mx-1 gap-2 items-center rounded-sm;
 }
 
 /* table a.delete-button {
   @apply bg-red-500 text-white p-1 text-sm rounded-md m-1 inline-flex py-1 pl-2 gap-1;
 } */
 
-button.btn-red {
-  @apply bg-red-700 text-white ml-2;
+.delete-button {
+  @apply bg-red-600 text-white px-2 rounded-sm;
+}
+table.basic a.delete-button {
+  @apply bg-red-600 text-white px-2 rounded-sm;
+}
+
+.label-title {
+  @apply text-xl;
+}
+
+.product-link-buttons {
+  @apply text-center;
+}
+
+.btn-primary {
+  @apply bg-blue-600 rounded-md text-white p-4 mt-2 mb-2;
 }
 /* add new product page */
 .btn-default,
-.btn-red {
-  @apply px-4 py-1 rounded-md;
+.delete-button {
+  @apply px-4 gap-2 py-1 inline-flex items-center rounded-sm;
 }
 .btn-default {
   @apply bg-gray-600 text-white;
