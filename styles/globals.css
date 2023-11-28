@@ -50,7 +50,7 @@ table.basic td.title {
 }
 
 table.basic tr td {
-  @apply p-1;
+  @apply p-2;
 }
 
 table.basic a {
