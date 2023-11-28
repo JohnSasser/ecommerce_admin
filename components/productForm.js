@@ -39,7 +39,7 @@ export default function ProductForm({
       title,
       description,
       price,
-      images,
+      // images,
       category,
       properties,
     };
@@ -67,6 +67,17 @@ export default function ProductForm({
     }
   }
 
+  async function updateImageURL() {
+    console.log('updateImageURL() ')
+    await (
+      await axios.put('/api/products/', { images, _id })
+    )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => console.error(err));
+  }
+
   async function uploadImage(e) {
     setImageLoader(true);
     let files = e.target?.files;
@@ -83,7 +94,12 @@ export default function ProductForm({
         return [...oldImages, ...res.data.links];
       });
     }
-    setImageLoader(false);
+    //  TODO: update product with new image
+    if (_id) {
+      updateImageURL()
+      setImageLoader(false)
+    }
+    setImageLoader(false)
   }
 
   function imageOrder(images) {

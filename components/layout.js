@@ -26,7 +26,6 @@ export default function Layout({ children }) {
     else setShowNav(false);
   }
 
-  console.log(showNav);
   return (
     <div className="bg-gray-200 h-screen">
       <div className=" md:hidden flex pl-6 items-center ">

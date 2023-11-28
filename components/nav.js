@@ -17,7 +17,6 @@ export default function Nav({ showNav }) {
     router.push('/');
     signOut();
   }
-  console.log(' showNav:', showNav);
 
   return (
     <aside
@@ -28,7 +27,6 @@ export default function Nav({ showNav }) {
     >
       <Link href={'/'} className="flex gap-4 mb-6 mr-6">
         <Logo />
-        
       </Link>
       <nav className="flex flex-col w-48 gap-3">
         {/* dashboard */}

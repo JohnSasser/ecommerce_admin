@@ -14,7 +14,7 @@ export default function Products() {
       .then(res => {
         let data = res.data;
         console.log('products: ', products);
-        // The localeCompare() method compares two strings in the current locale; sorting produces the new array.
+        // The localeCompare() method compares two strings in the current locale; sort() returns a new array.
         let sortedData = data.sort((a, b) => a.title.localeCompare(b.title));
         setProducts(sortedData);
         setLoading(false);
@@ -47,7 +47,7 @@ export default function Products() {
           <tbody className="">
             {products.map((product, idx) => (
               <tr className="border-b-2" key={product._id}>
-                <td className="text-center">{product.title}</td>
+                <td className="text-center p-2">{product.title}</td>
                 <td className="flex justify-evenly flex-wrap">
                   {product.images.map(x => (
                     <img
@@ -71,7 +71,7 @@ export default function Products() {
                     Edit
                   </Link>
                   <Link
-                  className='delete-button'
+                    className="delete-button"
                     href={'products/delete/' + product._id}
                   >
                     <svg
