@@ -28,18 +28,18 @@ style by the globally applied tailwind
 
 ## Mongoose
 [mongoose documentation for next.js](https://mongoosejs.com/docs/nextjs.html)
-
-* image hosting tools below *
-
-## Mulitparty 
+\
+<br /><br />
+# image hosting 
+<!-- ## Mulitparty 
 to parse images posted as form data.
  Used in the upload.js file under the api routes directory
-[multiparty](https://www.npmjs.com/package/multiparty)
+[multiparty](https://www.npmjs.com/package/multiparty) -->
 
 
 ## AWS S3
-personal console login:
-[image hosting S3](https://s3.console.aws.amazon.com/s3/buckets/sasser-next-ecommerce-admin-image-bucket?region=us-east-2&tab=objects)
+aws-s3 console login:
+[image hosting S3](https://s3.console.aws.amazon.com/s3/buckets)
 
 
 ### s3 skd for posting to instance
