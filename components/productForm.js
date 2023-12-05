@@ -39,7 +39,7 @@ export default function ProductForm({
       title,
       description,
       price,
-      // images,
+      images,
       category,
       properties,
     };
